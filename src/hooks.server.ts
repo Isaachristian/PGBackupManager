@@ -7,5 +7,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Add db connection
 	event.locals.db = db
 
-	return await resolve(event)
+	return resolve(event)
 }

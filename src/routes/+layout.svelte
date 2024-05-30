@@ -22,4 +22,6 @@
 		})
 </script>
 
-<slot />
+<div class="absolute inset-0 bg-gray-700">
+	<slot />
+</div>

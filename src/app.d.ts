@@ -1,12 +1,12 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
-import { type Database, Statement } from 'sqlite3';
+import { type Database } from 'sqlite'
 
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			db: Database<Database, Statement>;
+			db: Database
 		}
 		// interface PageData {}
 		// interface PageState {}
@@ -14,4 +14,4 @@ declare global {
 	}
 }
 
-export {};
+export {}

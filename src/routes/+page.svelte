@@ -4,17 +4,42 @@
 
 	export let data: PageData
 	export let form: ActionData
+
+	let newAccountText: string | undefined = undefined
+
+	$: newAccountText =
+		data.setup || form?.setup
+			? 'Password length must be 8+, and at least one of each of the folling must be present: ' +
+				'uppercase letter, lowercase letter, number and special character'
+			: undefined
 </script>
 
-<div
-	class="bg-gray-700 absolute inset-0 grid-cols-[auto_32rem_auto] grid-rows-[auto_min-content_auto] grid"
+<form
+	method="post"
+	use:enhance={() =>
+		async ({ update }) => {
+			update({ reset: false })
+		}}
+	action={data.setup || form?.setup ? '?/Create' : '?/Login'}
+	class="grid-cols-[auto_32rem_auto] grid-rows-[auto_min-content_auto] grid w-full h-full"
 >
-	<form
-		method="post"
-		use:enhance
+	<div
 		class="col-start-2 row-start-2 border border-gray-600 bg-gray-800 rounded-lg grid gap-4 p-4 grid-cols-2"
 	>
-		<div class="col-span-full text-2xl text-center font-semibold">Login</div>
+		<div class="col-span-full text-2xl text-center font-semibold">
+			{data.setup ? 'Setup Admin Account' : 'Login'}
+		</div>
+
+		{#if data.setup}
+			<sl-input
+				label="Name"
+				name="name"
+				class="col-span-full helpTextRed"
+				type="text"
+				placeholder="Firstname Lastname"
+				help-text={form?.nameErr}
+			/>
+		{/if}
 
 		<sl-input
 			label="Username"
@@ -24,14 +49,16 @@
 			placeholder="name@company.com"
 			help-text={form?.usernameErr}
 		></sl-input>
+
 		<sl-input
 			label="Password"
 			name="password"
-			class="col-span-full helpTextRed"
+			class="col-span-full"
+			class:helpTextRed={!data.setup || form?.passwordErr}
 			type="password"
 			password-toggle
 			placeholder="Password"
-			help-text={form?.passwordErr}
+			help-text={form?.passwordErr || newAccountText}
 		></sl-input>
 
 		{#if form?.require2fa}
@@ -48,13 +75,11 @@
 			/>
 		{/if}
 
-		<sl-button class="mt-4 col-span-full" size="medium" formaction="?/Login" type="submit"
-			>Login
+		<sl-button class="mt-4 col-span-full" size="medium" type="submit">
+			{data.setup || form?.setup ? 'Create Account' : 'Login'}
 		</sl-button>
-		<sl-button variant="text" size="medium" formaction="CreateAccount">Create Account</sl-button>
-		<sl-button variant="text" size="medium" formaction="ForgotPassword">Forgot Password</sl-button>
-	</form>
-</div>
+	</div>
+</form>
 
 <style>
 	.helpTextRed::part(form-control-help-text) {
