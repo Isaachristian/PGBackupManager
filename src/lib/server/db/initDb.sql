@@ -6,18 +6,21 @@ drop table if exists server_config;
 create table if not exists user
 (
     id       integer primary key autoincrement,
-    name     text not null,
-    email    text not null unique,
-    password text not null,
-    is_admin boolean not null default false
+    name     text    not null,
+    email    text    not null unique,
+    password text    not null,
+    is_admin boolean not null default false,
+    secret   text    not null,
+    approved boolean not null default false,
+    active   boolean not null default true
 );
 
 create table if not exists session
 (
-    id integer primary key autoincrement ,
-    user_id integer not null,
-    session_uuid text not null,
-    expires_at datetime not null,
+    id           integer primary key autoincrement,
+    user_id      integer  not null,
+    session_uuid text     not null,
+    expires_at   datetime not null,
     foreign key (user_id) references user (id)
 );
 

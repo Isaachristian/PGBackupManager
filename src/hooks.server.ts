@@ -35,14 +35,13 @@ async function sessionValid(db: Database, cookies: Cookies): Promise<boolean> {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// Add db connection
 	event.locals.db = db
 
 	const path = event.url.pathname
 	if (await sessionValid(db, event.cookies)) {
-		if (path === '' || path === '/') redirect(307, '/home')
+		if (path === '/') redirect(307, '/home')
 	} else {
-		if (path !== '' && path !== '/') redirect(307, '/')
+		if (path !== '/') redirect(307, '/')
 	}
 
 	const user = await loadUserFromSession(event.cookies)

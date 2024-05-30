@@ -2,6 +2,7 @@
 	import '../app.css'
 	import { browser } from '$app/environment'
 
+	// https://github.com/shoelace-style/shoelace/discussions/1690
 	if (browser)
 		new MutationObserver((mutation) => {
 			for (let m of mutation) {

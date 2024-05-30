@@ -7,6 +7,13 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			db: Database
+			user: {
+				id: string
+				name: string
+				email: string
+				is_admin: boolean
+				setup_2fa: boolean
+			}
 		}
 		// interface PageData {}
 		// interface PageState {}

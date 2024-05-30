@@ -3,15 +3,22 @@ import { getUserCount } from '$lib/server/views/user'
 import { create, login } from '$lib/server/controllers/user'
 import type { LoginActionResponse } from '$lib/interfaces/LoginActionResponse'
 import { validatePassword } from '$lib/utils/login'
+import speakeasy, { type GeneratedSecret } from 'speakeasy'
 
 interface LoginData {
 	setup: boolean
+	secret?: GeneratedSecret
 }
 
-export const load = (async ({ locals }): Promise<LoginData> => {
+export const load = (async ({ locals, url }): Promise<LoginData> => {
 	const userCount = await getUserCount(locals.db)
 
-	return { setup: userCount === 0 }
+	const setup = userCount === 0 || !!url.searchParams.get('setup')
+
+	return {
+		setup,
+		secret: setup ? speakeasy.generateSecret({ length: 20, name: 'IW Backup Manager' }) : undefined
+	}
 }) satisfies ServerLoad
 
 export const actions = {
@@ -21,6 +28,7 @@ export const actions = {
 		const data = await request.formData()
 		const username = data.get('username')
 		const password = data.get('password')
+		const token = data.get('token')?.toString() ?? ''
 
 		// check for quick errors
 		const emailRegex = /^\S+@\S+\.\S+$/
@@ -30,8 +38,8 @@ export const actions = {
 
 		try {
 			// attempt login
-			const { sessionID, err } = await login(db, username.toString(), password.toString())
-			if (err) return err === 'User not found' ? { setup: true } : { passwordErr: err }
+			const { sessionID, err } = await login(db, username.toString(), password.toString(), token)
+			if (err) return err === 'Password incorrect' ? { passwordErr: err } : { generalErr: err }
 			if (!sessionID) return { generalErr: 'Something went wrong' }
 
 			// set session if valid login
@@ -55,6 +63,8 @@ export const actions = {
 		const name = data.get('name')
 		const username = data.get('username')
 		const password = data.get('password')
+		const secret = data.get('secret')?.toString() ?? ''
+		const token = data.get('token')?.toString() ?? ''
 
 		// check for quick errors
 		const emailRegex = /^\S+@\S+\.\S+$/
@@ -66,12 +76,17 @@ export const actions = {
 		const issue = validatePassword(password.toString())
 		if (issue !== undefined) return { passwordErr: issue }
 
+		if (!speakeasy.totp.verify({ secret, encoding: 'base32', token, window: 1 }))
+			return { generalErr: 'Could not verify token' }
+
 		try {
 			const { sessionID, err } = await create(
 				db,
 				name.toString(),
 				username.toString(),
-				password.toString()
+				password.toString(),
+				(await getUserCount(db)) === 0,
+				secret
 			)
 
 			if (err || !sessionID) return { generalErr: 'Something went wrong!' }
