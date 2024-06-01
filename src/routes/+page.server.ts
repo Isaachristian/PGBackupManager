@@ -53,7 +53,7 @@ export const actions = {
 			return { generalErr: 'Something went wrong!' }
 		}
 
-		redirect(303, '/home')
+		redirect(303, '/app')
 	},
 
 	Create: async ({ request, locals, cookies }): Promise<LoginActionResponse> => {
@@ -102,6 +102,6 @@ export const actions = {
 			return { generalErr: 'Something went wrong' }
 		}
 
-		redirect(303, '/home')
+		redirect(303, '/app')
 	}
 } satisfies Actions
