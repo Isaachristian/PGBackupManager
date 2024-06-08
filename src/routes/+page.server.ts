@@ -45,7 +45,9 @@ export const actions = {
 			// set session if valid login
 			cookies.set('sessionID', sessionID, {
 				path: '/',
-				expires: new Date(Date.now() + 1000 * 60 * 60 * 2)
+				httpOnly: true,
+				secure: true, // todo change
+				sameSite: 'strict'
 			})
 		} catch (e) {
 			console.error(e)

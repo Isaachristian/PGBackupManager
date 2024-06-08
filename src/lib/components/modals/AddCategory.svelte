@@ -17,7 +17,7 @@
 	on:sl-hide={() => (show = false)}
 >
 	<form action="?/AddDatabaseConfiguration" class="grid grid-cols-2 gap-4">
-		<sl-input label="Database Name" placeholder="Test" class="col-span-2" bind:value={name} />
+		<sl-input label="Database Name" placeholder="Test" class="col-span-2" value={name} />
 		<sl-input label="Host" placeholder="localhost" />
 		<sl-input label="Port" placeholder="5432" value="5432" type="number" />
 		<sl-input label="User" placeholder="User" />

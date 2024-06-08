@@ -13,6 +13,7 @@ export async function sessionValid(db: Database, cookies: Cookies): Promise<bool
 	if (isValid) {
 		// todo extend
 	} else {
+		console.log(`Session ID expired for session ID: ${sessionID}`)
 		cookies.delete('sessionID', { path: '/' })
 	}
 
