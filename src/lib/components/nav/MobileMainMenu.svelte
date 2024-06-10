@@ -1,0 +1,27 @@
+<script lang="ts">
+	import MainMenu from '$lib/components/nav/MainMenu.svelte'
+	import type { SlDrawer } from '@shoelace-style/shoelace'
+
+	let drawer: SlDrawer
+</script>
+
+<div class="bg-white dark:bg-gray-800 lg:hidden flex">
+	<sl-icon-button name="list" class="text-[2rem]" on:click={() => drawer.show()} />
+	<div class="leading-[3rem] font-semibold text-lg text-gray-700 grow">Current Page</div>
+</div>
+
+<sl-drawer
+	placement="start"
+	bind:this={drawer}
+	open
+	style="--size: 20rem; --body-spacing: 0px"
+	no-header
+>
+	<MainMenu mobile />
+</sl-drawer>
+
+<style>
+	sl-drawer::part(panel) {
+		@apply p-0 flex-col flex bg-gray-100;
+	}
+</style>

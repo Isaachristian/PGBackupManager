@@ -23,6 +23,6 @@
 		})
 </script>
 
-<div class="absolute inset-0 bg-gray-700">
+<div class="absolute inset-0 bg-gray-100 dark:bg-gray-700">
 	<slot />
 </div>
