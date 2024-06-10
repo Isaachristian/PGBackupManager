@@ -13,10 +13,7 @@
 			<sl-option value="RGA">RGA</sl-option>
 			<sl-option value="Transcom">Transcom</sl-option>
 			<sl-option value="EmpowerFresh">Empower Fresh</sl-option>
-			<sl-option value="add">
-				<sl-icon name="plus-circle" slot="prefix" />
-				Add New
-			</sl-option>
+			<sl-option value="add"> <sl-icon name="plus-circle" slot="prefix" />Add New</sl-option>
 		</sl-select>
 	</div>
 
