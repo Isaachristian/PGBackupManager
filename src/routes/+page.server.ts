@@ -1,9 +1,10 @@
 import { type Actions, redirect, type ServerLoad } from '@sveltejs/kit'
 import { getUserCount } from '$lib/server/views/user'
-import { create, login } from '$lib/server/controllers/user'
+import { login } from '$lib/server/controllers/auth'
 import type { LoginActionResponse } from '$lib/interfaces/LoginActionResponse'
 import { validatePassword } from '$lib/utils/login'
 import speakeasy, { type GeneratedSecret } from 'speakeasy'
+import { create } from '$lib/server/controllers/user'
 
 interface LoginData {
 	setup: boolean

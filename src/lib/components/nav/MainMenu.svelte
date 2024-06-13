@@ -7,7 +7,7 @@
 	let addingCategory = false
 </script>
 
-<div class="flex-col h-full lg:flex" class:flex={mobile} class:hidden={!mobile}>
+<div class="flex-col h-full lg:flex dark:bg-gray-800" class:flex={mobile} class:hidden={!mobile}>
 	<div class="p-4 gap-2">
 		<sl-select placement="bottom" placeholder="Select a project..." label="Project">
 			<sl-option value="RGA">RGA</sl-option>

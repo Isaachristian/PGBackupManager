@@ -3,23 +3,11 @@
 	import MobileMainMenu from '$lib/components/nav/MobileMainMenu.svelte'
 </script>
 
-<div class="w-full h-full grid mobileGrid lg:mainGrid">
+<div
+	class="w-full h-full grid grid-cols-[1fr] grid-rows-[3rem_auto] lg:grid-cols-[16rem_auto]
+				 lg:grid-rows-1"
+>
 	<MobileMainMenu />
-
 	<MainMenu />
-
-	<div class="relative">
-		<slot />
-	</div>
+	<div class="relative overflow-x-hidden overflow-y-auto bg-gray-700"><slot /></div>
 </div>
-
-<style>
-	.mobileGrid {
-		grid-template-columns: 1fr;
-		grid-template-rows: 3rem auto;
-	}
-
-	.mainGrid {
-		grid-template-columns: 16rem auto;
-	}
-</style>

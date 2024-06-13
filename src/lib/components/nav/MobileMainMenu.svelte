@@ -7,13 +7,14 @@
 
 <div class="bg-white dark:bg-gray-800 lg:hidden flex">
 	<sl-icon-button name="list" class="text-[2rem]" on:click={() => drawer.show()} />
-	<div class="leading-[3rem] font-semibold text-lg text-gray-700 grow">Current Page</div>
+	<div class="leading-[3rem] font-semibold text-lg text-gray-700 dark:text-gray-300 grow">
+		Current Page
+	</div>
 </div>
 
 <sl-drawer
 	placement="start"
 	bind:this={drawer}
-	open
 	style="--size: 20rem; --body-spacing: 0px"
 	no-header
 >
@@ -22,6 +23,6 @@
 
 <style>
 	sl-drawer::part(panel) {
-		@apply p-0 flex-col flex bg-gray-100;
+		@apply p-0 flex-col flex bg-gray-100 dark:bg-gray-900;
 	}
 </style>

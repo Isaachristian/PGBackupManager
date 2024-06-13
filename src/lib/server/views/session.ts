@@ -10,8 +10,15 @@ export async function sessionValid(db: Database, cookies: Cookies): Promise<bool
 	const { expires_at } = (await db.get<{ expires_at: number }>(sql, sessionID)) ?? {}
 	const isValid = expires_at !== undefined && expires_at >= new Date().getTime()
 
+	console.log(isValid, expires_at)
+
 	if (isValid) {
-		// todo extend
+		const extendSql = `
+			update session
+			set expires_at = now()
+		`
+
+		// await db.exec()
 	} else {
 		console.log(`Session ID expired for session ID: ${sessionID}`)
 		cookies.delete('sessionID', { path: '/' })
