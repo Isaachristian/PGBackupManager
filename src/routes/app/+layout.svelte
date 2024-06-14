@@ -11,8 +11,8 @@
 	class="w-full h-full grid grid-cols-[1fr] grid-rows-[3rem_auto] lg:grid-cols-[16rem_auto]
 				 lg:grid-rows-1"
 >
-	<MobileMainMenu categories={data.categories} />
-	<MainMenu categories={data.categories} />
+	<MobileMainMenu categories={data.categories ?? []} />
+	<MainMenu categories={data.categories ?? []} />
 	<div class="relative overflow-x-hidden overflow-y-auto bg-neutral-700"><slot /></div>
 </div>
 

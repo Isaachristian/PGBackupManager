@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { addingCategory } from '$lib/stores/modals'
-	import type { SlDialog } from '@shoelace-style/shoelace'
-	import { onMount } from 'svelte'
 	import { applyAction, enhance } from '$app/forms'
 	import type { SubmitFunction } from '@sveltejs/kit'
 	import { page } from '$app/stores'
@@ -18,18 +16,14 @@
 			}
 		}
 	}) satisfies SubmitFunction
-
-	let dialog: SlDialog
-
-	onMount(() => addingCategory.subscribe((show) => (show ? dialog.show() : dialog?.hide())))
 </script>
 
 <sl-dialog
 	class="dialog"
 	title="test"
 	label="Add Category"
-	bind:this={dialog}
 	on:sl-hide={() => ($addingCategory = false)}
+	open={$addingCategory ?? false}
 >
 	<form
 		method="post"

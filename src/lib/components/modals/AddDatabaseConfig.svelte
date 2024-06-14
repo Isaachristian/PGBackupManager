@@ -1,19 +1,13 @@
 <script lang="ts">
-	import type { SlDialog } from '@shoelace-style/shoelace'
-	import { onMount } from 'svelte'
 	import { addingDatabase } from '$lib/stores/modals'
-
-	let dialog: SlDialog
-
-	onMount(() => addingDatabase.subscribe((show) => (show ? dialog.show() : dialog.hide())))
 </script>
 
 <sl-dialog
 	class="dialog"
 	title="test"
 	label="Add Database Configuration"
-	bind:this={dialog}
 	on:sl-hide={() => ($addingDatabase = false)}
+	open={$addingDatabase ?? false}
 >
 	<form action="?/AddDatabaseConfiguration" class="grid grid-cols-2 gap-4">
 		<sl-input label="Database Name" placeholder="Test" class="col-span-2" />
