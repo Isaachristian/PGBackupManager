@@ -18,7 +18,7 @@
 		}).observe(document.body, {
 			subtree: true,
 			childList: true,
-			attributeFilter: ['variant', 'size'],
+			attributeFilter: ['variant', 'size', 'name', 'slot'],
 			attributeOldValue: true
 		})
 </script>

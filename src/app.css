@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+sl-dialog {
+    --width: 40rem;
+    --header-spacing: 1rem;
+    --body-spacing: 1rem;
+    --footer-spacing: 1rem;
+}

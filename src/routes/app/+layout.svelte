@@ -1,6 +1,8 @@
 <script lang="ts">
 	import MainMenu from '$lib/components/nav/MainMenu.svelte'
 	import MobileMainMenu from '$lib/components/nav/MobileMainMenu.svelte'
+	import AddCategory from '$lib/components/modals/AddCategory.svelte'
+	import AddDatabaseConfig from '$lib/components/modals/AddDatabaseConfig.svelte'
 </script>
 
 <div
@@ -11,3 +13,6 @@
 	<MainMenu />
 	<div class="relative overflow-x-hidden overflow-y-auto bg-gray-700"><slot /></div>
 </div>
+
+<AddCategory />
+<AddDatabaseConfig />

@@ -3,6 +3,7 @@ import type { User } from '$lib/interfaces/User'
 import type { Category } from '$lib/interfaces/Category'
 import type { ServerConfig } from '$lib/interfaces/ServerConfig'
 import { getUserById } from '$lib/server/views/user'
+import { getCategories } from '$lib/server/views/categories'
 
 interface BaseData {
 	user: User | undefined
@@ -15,10 +16,8 @@ export const load: ServerLoad = async ({ locals, depends, params, url }): Promis
 
 	try {
 		const user = userId ? await getUserById(db, userId) : undefined
-		const categories: Category[] = []
+		const categories: Category[] = await getCategories(db, userId)
 		const serverConfig: ServerConfig[] = []
-
-		console.log(user, userId)
 
 		return { user, categories, serverConfig }
 	} catch (e) {
