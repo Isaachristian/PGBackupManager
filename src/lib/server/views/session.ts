@@ -10,8 +10,6 @@ export async function sessionValid(db: Database, cookies: Cookies): Promise<bool
 	const { expires_at } = (await db.get<{ expires_at: number }>(sql, sessionID)) ?? {}
 	const isValid = expires_at !== undefined && expires_at >= new Date().getTime()
 
-	console.log(isValid, expires_at)
-
 	if (isValid) {
 		const extendSql = `
 			update session
@@ -20,7 +18,7 @@ export async function sessionValid(db: Database, cookies: Cookies): Promise<bool
 
 		// await db.exec()
 	} else {
-		console.log(`Session ID expired for session ID: ${sessionID}`)
+		console.info(`Session ID expired for session ID: ${sessionID}`)
 		cookies.delete('sessionID', { path: '/' })
 	}
 

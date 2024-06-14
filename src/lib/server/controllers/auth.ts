@@ -34,8 +34,6 @@ export async function login(
 }
 
 async function generateSession(db: Database, userId: number): Promise<string> {
-	console.log(userId)
-
 	const removeOldSessions = 'delete from session where user_id = ?'
 	const issueSessionSql = 'insert into session (user_id, session_uuid, expires_at) values (?, ?, ?)'
 

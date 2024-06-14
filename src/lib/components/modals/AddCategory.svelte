@@ -22,8 +22,6 @@
 	let dialog: SlDialog
 
 	onMount(() => addingCategory.subscribe((show) => (show ? dialog.show() : dialog?.hide())))
-
-	$: console.log($page.form)
 </script>
 
 <sl-dialog

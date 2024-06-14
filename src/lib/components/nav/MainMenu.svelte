@@ -2,14 +2,10 @@
 	import { page } from '$app/stores'
 	import { addingCategory } from '$lib/stores/modals'
 	import type { Category } from '$lib/interfaces/Category'
-	import { afterNavigate, goto } from '$app/navigation'
+	import { goto } from '$app/navigation'
 
 	export let mobile = false
 	export let categories: Category[] = []
-
-	afterNavigate(selectCategory)
-
-	function selectCategory() {}
 </script>
 
 <div
@@ -20,7 +16,7 @@
 	<sl-button
 		href="/app"
 		variant="text"
-		class="mt-4 mx-4 home"
+		class="mx-4 home"
 		class:homeSelected={$page.url.pathname === '/app'}
 	>
 		<sl-icon name="house-door-fill" slot="prefix" />
@@ -31,7 +27,6 @@
 		<sl-select
 			placement="bottom"
 			placeholder="Select a category..."
-			label="Category"
 			on:sl-change={(e) => goto(`/app/category${e.target.value}`)}
 			value={$page.params.category_id ?? ''}
 		>
@@ -65,39 +60,25 @@
 		<sl-tree-item>
 			<sl-icon name="database-fill" />
 			Databases
-			<sl-tree-item>Production</sl-tree-item>
-			<sl-tree-item>Test</sl-tree-item>
-			<sl-tree-item>Development</sl-tree-item>
+			{#each $page.data.databases ?? [] as { server_name }}
+				<sl-tree-item>{server_name}</sl-tree-item>
+			{/each}
 		</sl-tree-item>
 	</sl-tree>
 
 	<div class="grow"></div>
 
-	<div class="flex px-4 gap-4 sticky bottom-[52px] bg-gray-100 dark:bg-neutral-800">
-		<div class="grow leading-8">{$page.data.user?.name}</div>
-		<sl-dropdown distance="24" placement="right-start">
-			<sl-icon-button slot="trigger" name="person-circle" />
-			<sl-menu>
-				<sl-menu-item>
-					<sl-icon name="gear" slot="prefix" />
-					Manage Users
-				</sl-menu-item>
-				<sl-menu-item>
-					<sl-icon name="gear" slot="prefix" />
-					Profile Settings
-				</sl-menu-item>
-				<div class="bg-neutral-700 h-[1px] my-2"></div>
-				<sl-menu-item>
-					<sl-icon name="box-arrow-in-left" slot="prefix" />
-					Logout
-				</sl-menu-item>
-			</sl-menu>
-		</sl-dropdown>
-	</div>
+	<sl-details summary={$page.data.user?.name} class="mx-4">
+		<div class="-m-4 *:w-full">
+			<sl-button variant="text"> <sl-icon name="gear" slot="prefix" /> Manage Users </sl-button>
+			<sl-button variant="text"> <sl-icon name="gear" slot="prefix" /> Profile Settings </sl-button>
+			<sl-button variant="danger">
+				<sl-icon name="box-arrow-in-left" slot="prefix" /> Logout
+			</sl-button>
+		</div>
+	</sl-details>
 
-	<div
-		class="flex text-gray-400 text-sm font-light p-4 sticky bottom-0 bg-gray-100 dark:bg-neutral-800"
-	>
+	<div class="flex text-gray-400 text-sm font-light p-4 bg-gray-100 dark:bg-neutral-800">
 		<div class="grow">IW Backup Manager</div>
 		<div>v0.0.0</div>
 	</div>
@@ -112,9 +93,9 @@
 		@apply bg-neutral-700;
 	}
 
-	sl-tree-item::part(expand-button) {
-		@apply w-fit;
-	}
+	/*sl-tree-item::part(expand-button) {*/
+	/*	@apply w-fit;*/
+	/*}*/
 
 	sl-tree-item::part(item) {
 		@apply !rounded-md border-none;
