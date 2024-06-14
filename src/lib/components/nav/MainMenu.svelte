@@ -16,7 +16,7 @@
 	<sl-button
 		href="/app"
 		variant="text"
-		class="mx-4 home"
+		class="mx-4 mt-4 home"
 		class:homeSelected={$page.url.pathname === '/app'}
 	>
 		<sl-icon name="house-door-fill" slot="prefix" />
