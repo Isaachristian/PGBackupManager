@@ -2,6 +2,7 @@
 	import { page } from '$app/stores'
 	import { addingCategory, addingDatabase } from '$lib/stores/modals'
 	import type { Category } from '$lib/interfaces/Category'
+	import { goto } from '$app/navigation'
 
 	export let mobile = false
 	export let categories: Category[] = []
@@ -13,13 +14,14 @@
 			placement="bottom"
 			placeholder="Select a category..."
 			label="Category"
-			on:sl-change={() => alert('mad it here')}
+			on:sl-change={(e) => goto(`/app/category${e.target.value}`)}
 		>
-			<sl-option>test</sl-option>
-			{#each categories as category}
-				{category}
+			{#each categories as { id, name }}
+				<sl-option value={id}>{name}</sl-option>
 			{/each}
+
 			<sl-divider />
+
 			<sl-button
 				size="medium"
 				variant="text"

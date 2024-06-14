@@ -19,6 +19,8 @@ export const load: ServerLoad = async ({ locals, depends, params, url }): Promis
 		const categories: Category[] = await getCategories(db, userId)
 		const serverConfig: ServerConfig[] = []
 
+		console.log(categories)
+
 		return { user, categories, serverConfig }
 	} catch (e) {
 		console.error(e)

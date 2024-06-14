@@ -2,6 +2,9 @@
 	import MainMenu from '$lib/components/nav/MainMenu.svelte'
 	import type { SlDrawer } from '@shoelace-style/shoelace'
 	import { page } from '$app/stores'
+	import type { Category } from '$lib/interfaces/Category'
+
+	export let categories: Category[]
 
 	let drawer: SlDrawer
 
@@ -25,7 +28,7 @@
 	style="--size: 20rem; --body-spacing: 0px"
 	no-header
 >
-	<MainMenu mobile />
+	<MainMenu mobile bind:categories />
 </sl-drawer>
 
 <style>

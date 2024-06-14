@@ -1,10 +1,18 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
+	import { applyAction, enhance } from '$app/forms'
 	import type { ActionData, PageData } from './$types'
 	import { goto } from '$app/navigation'
+	import type { SubmitFunction } from '@sveltejs/kit'
 
 	export let data: PageData
 	export let form: ActionData
+
+	const e = (() => {
+		return async ({ update, result }) => {
+			await update({ reset: false, invalidateAll: false })
+			await applyAction(result)
+		}
+	}) satisfies SubmitFunction
 
 	let newAccountText: string | undefined = undefined
 
@@ -20,10 +28,7 @@
 
 <form
 	method="post"
-	use:enhance={() =>
-		async ({ update }) => {
-			update({ reset: false })
-		}}
+	use:enhance={e}
 	action={data.setup ? '?/Create' : '?/Login'}
 	class="grid w-full h-full grid-cols-[1rem_auto_1rem] grid-rows-[2rem_min-content_auto]
 	       md:grid-cols-[auto_32rem_auto] md:grid-rows-[auto_min-content_auto]"

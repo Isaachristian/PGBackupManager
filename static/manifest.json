@@ -1,0 +1,16 @@
+{
+	"short_name": "IWBM",
+	"name": "IW Backup Manager",
+	"description": "Manage backups to S3",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#000000",
+	"icons": [
+		{
+			"src": "/favicon.png",
+			"sizes": "700x700",
+			"type": "image/png"
+		}
+	]
+}

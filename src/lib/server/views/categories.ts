@@ -9,5 +9,21 @@ export async function getCategories(db: Database, userId: number): Promise<Categ
       order by name
 	`
 
-	return []
+	return (await db.all<Category[]>(sql, [userId])) ?? []
+
+	// return []
+}
+
+export async function categoryUnique(db: Database, name: string): Promise<boolean> {
+	const sql = `
+      select exists(select count(*)
+                    from category
+                    where name = ?) as already_exists
+	`
+
+	const { already_exists } = (await db.get<{ already_exists: boolean }>(sql, name)) ?? {}
+
+	if (already_exists === undefined) throw new Error(`Failed to check if ${name} already exists`)
+
+	return already_exists
 }
