@@ -13,7 +13,7 @@
 >
 	<MobileMainMenu categories={data.categories} />
 	<MainMenu categories={data.categories} />
-	<div class="relative overflow-x-hidden overflow-y-auto bg-gray-700"><slot /></div>
+	<div class="relative overflow-x-hidden overflow-y-auto bg-neutral-700"><slot /></div>
 </div>
 
 <AddCategory />

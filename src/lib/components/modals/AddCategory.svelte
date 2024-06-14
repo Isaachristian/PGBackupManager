@@ -5,17 +5,23 @@
 	import { applyAction, enhance } from '$app/forms'
 	import type { SubmitFunction } from '@sveltejs/kit'
 	import { page } from '$app/stores'
+	import { goto } from '$app/navigation'
 
 	const e = (() => {
 		return async ({ update, result }) => {
-			await update({ reset: false, invalidateAll: false })
+			await update({ reset: false })
 			await applyAction(result)
+
+			if (result.type === 'success') {
+				$addingCategory = false
+				if (result.data?.categoryID) await goto(`/app/category${result.data.categoryID}`)
+			}
 		}
 	}) satisfies SubmitFunction
 
 	let dialog: SlDialog
 
-	onMount(() => addingCategory.subscribe((show) => (show ? dialog.show() : dialog.hide())))
+	onMount(() => addingCategory.subscribe((show) => (show ? dialog.show() : dialog?.hide())))
 
 	$: console.log($page.form)
 </script>
@@ -29,10 +35,10 @@
 >
 	<form
 		method="post"
-		action="?/AddCategory"
+		action="/app?/AddCategory"
 		class="grid grid-cols-1 gap-4"
 		id="addCategoryForm"
-		use:enhance
+		use:enhance={e}
 	>
 		<sl-input
 			label="Category Name"

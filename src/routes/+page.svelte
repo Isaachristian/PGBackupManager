@@ -33,7 +33,9 @@
 	class="grid w-full h-full grid-cols-[1rem_auto_1rem] grid-rows-[2rem_min-content_auto]
 	       md:grid-cols-[auto_32rem_auto] md:grid-rows-[auto_min-content_auto]"
 >
-	<div class="col-start-2 row-start-2 border border-gray-600 bg-gray-800 rounded-lg grid gap-4 p-4">
+	<div
+		class="col-start-2 row-start-2 border border-neutral-600 bg-neutral-800 rounded-lg grid gap-4 p-4"
+	>
 		<div class="col-span-full text-2xl text-center font-semibold">
 			{data.setup ? 'New Account' : 'Login'}
 		</div>

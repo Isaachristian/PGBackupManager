@@ -15,9 +15,9 @@ export const actions = {
 			if (!(await categoryUnique(db, name)))
 				return fail(400, { categoryName: name, notUnique: true })
 
-			await createCategory(db, userId, name)
+			const id = await createCategory(db, userId, name)
 
-			return { success: true, message: 'Completed action successfully' }
+			return { categoryID: id }
 		} catch (e: any) {
 			console.error(e)
 
